@@ -80,6 +80,10 @@ pub struct Cli {
     /// Run arbiraty javascript
     #[arg(long)]
     pub javascript: Option<String>,
+
+    /// Run arbiraty javascript
+    #[arg(long)]
+    pub chromeargs: Option<String>,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
@@ -133,4 +137,6 @@ mod tests {
         let args = Cli::try_parse_from(["-b my_browser", "-f /my/file"]);
         assert!(args.is_ok());
     }
+
+    //TODO: add chromeargs
 }

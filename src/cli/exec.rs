@@ -30,6 +30,7 @@ pub async fn run(
         ports,
         accept_invalid_certs,
         javascript,
+        chromeargs,
     }: Cli,
 ) -> anyhow::Result<()> {
     let browser = Path::new(&binary_path);
@@ -39,9 +40,15 @@ pub async fn run(
         )));
     }
 
+    let ca = match chromeargs{
+        Some(a) => vec![a],
+        None => vec![]
+    };
+
     let (browser, mut handler) = Browser::launch(
         BrowserConfig::builder()
             .no_sandbox()
+            .args(ca)
             .window_size(width, height)
             .chrome_executable(browser)
             .viewport(Viewport {
